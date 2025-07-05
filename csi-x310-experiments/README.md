@@ -33,7 +33,7 @@ conda create -n gr48 python=3.9
 conda activate gr48
 ```
 
-Nota: Ao iniciar um novo terminal, lembre-se de ativar o ambiente gr48 antes de executar qualquer script.
+> **Nota:** Ao iniciar um novo terminal, lembre-se de ativar o ambiente gr48 antes de executar qualquer script.
 
 ```bash
 conda activate gr48
@@ -64,29 +64,95 @@ uhd_usrp_probe
 
 Ambos devem identificar corretamente a X310. Se der erro, verifique cabo, IP e permissões.
 
-#### 3.3. Atualizar imagens do FPGA (compatível com UHD 4.8)
+### 3. Preparação do Ambiente e da SDR X310
 
-Baixe e instale as imagens recomendadas:
+A seguir, detalhamos os passos realizados para configurar corretamente a USRP X310, preparar o sistema operacional, instalar as dependências e verificar o funcionamento do hardware antes da coleta de dados.
 
-```bash
-sudo /usr/lib/uhd/utils/uhd_images_downloader.py
-```
+#### 3.1. Configuração da conexão com a X310
 
-Após o download, atualize o FPGA com:
+Conecte a porta de rede 10G da USRP X310 diretamente ao computador host (ou via switch compatível) e configure a interface de rede com o seguinte IP:
 
 ```bash
-sudo /usr/bin/uhd_image_loader --args="type=x300,addr=192.168.10.2"
+sudo ip addr add 192.168.10.1/24 dev <sua_interface>
+sudo ip link set <sua_interface> up
 ```
 
-> **Importante:** a versão do FPGA precisa estar compatível com o UHD instalado. O erro "FPGA compatibility number mismatch" indica necessidade de atualização.
+> Substitua `<sua_interface>` pelo nome da sua interface de rede (ex: `enp3s0`, `eth0`, etc.).
 
-#### 3.4. Testar recepção com `uhd_fft`
+#### 3.2. Verificação da comunicação com a X310
 
-Este comando gráfico permite verificar espectro em tempo real:
+Use os comandos abaixo para verificar se a X310 está corretamente conectada e acessível:
 
 ```bash
-uhd_fft --freq 3500e6 --samp-rate 15.36e6 --gain 40
+ping 192.168.10.2
 ```
 
-> Observação: é necessário estar com o ambiente `gr48` ativado.
+Se o ping responder, teste a comunicação via UHD:
 
+```bash
+uhd_usrp_probe
+```
+
+Esse comando deve exibir informações da placa, como o modelo (X310), subdevices (UBX RX/TX), versão do FPGA, etc.
+
+#### 3.3. Atualização da imagem do FPGA
+
+Caso a versão do UHD no host seja mais recente do que a do FPGA embarcado, será necessário atualizá-lo:
+
+```bash
+sudo uhd_images_downloader
+sudo uhd_image_loader --args="type=x300,addr=192.168.10.2"
+```
+
+Aguarde a conclusão do processo e reinicie a USRP, se necessário.
+
+#### 3.4. Instalação do Miniconda
+
+Baixe o instalador mais recente do [Miniconda](https://docs.conda.io/en/latest/miniconda.html) e execute:
+
+```bash
+bash Miniconda3-latest-Linux-x86_64.sh
+```
+
+Após instalar, crie o ambiente com a versão apropriada do Python:
+
+```bash
+conda create -n gr48 python=3.9
+conda activate gr48
+```
+
+> Lembre-se de ativar o ambiente `gr48` sempre que iniciar um novo terminal:
+>
+> ```bash
+> conda activate gr48
+> ```
+
+#### 3.5. Instalação do UHD e GNU Radio
+
+Instale o UHD e outras dependências:
+
+```bash
+sudo apt install uhd-host libuhd-dev
+```
+
+Com o `gr48` ativado, instale o GNU Radio via Conda:
+
+```bash
+conda install -c conda-forge gnuradio
+```
+
+Você pode especificar uma versão mais exata, se necessário:
+
+```bash
+conda install -c conda-forge gnuradio=3.10
+```
+
+#### 3.6. Tentativa de operação como UE com srsUE
+
+Inicialmente, testamos configurar a X310 como um equipamento de usuário (UE) usando o `srsRAN` (v4). O processo incluiu:
+
+- Clonagem e compilação do `srsRAN`
+- Configuração dos arquivos `.conf` com parâmetros da operadora
+- Sincronização com gNB comercial
+
+Apesar das tentativas, **não foi possível concluir a sincronização com sucesso**. A X310 apresentou incompatibilidades em relação ao funcionamento esperado como UE. Por esse motivo, **optamos por seguir com a abordagem de escuta passiva**, descrita na próxima seção.
