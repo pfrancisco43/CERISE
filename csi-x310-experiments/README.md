@@ -31,4 +31,11 @@ Os comandos e ambientes utilizados foram organizados no ambiente `gr48`. A cria√
 ```bash
 conda create -n gr48 python=3.9
 conda activate gr48
+```
+
+Nota: Ao iniciar um novo terminal, lembre-se de ativar o ambiente gr48 antes de executar qualquer script.
+
+```bash
+conda activate gr48
+```
 
