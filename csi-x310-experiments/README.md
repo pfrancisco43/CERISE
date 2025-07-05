@@ -1,4 +1,4 @@
-## 🧪 Experimentos para extração do CSI com a SDR X310 em redes 5G
+## Experimentos para extração do CSI com a SDR X310 em redes 5G
 
 ### 1. Introdução
 
@@ -38,4 +38,55 @@ Nota: Ao iniciar um novo terminal, lembre-se de ativar o ambiente gr48 antes de 
 ```bash
 conda activate gr48
 ```
+### 3. Instalação e Configuração da X310
+
+Esta etapa garante que o computador esteja pronto para comunicar com a USRP X310 e fazer capturas confiáveis em tempo real.
+
+#### 3.1. Verificar conexão de rede com a USRP
+
+Configure o IP da interface Ethernet para comunicar com a X310 (por padrão: `192.168.10.1`):
+
+```bash
+sudo ip addr add 192.168.10.1/24 dev <nome_da_interface>
+sudo ip link set <nome_da_interface> up
+```
+
+Substitua `<nome_da_interface>` por `enp1s0`, `eth0`, ou outro, conforme seu sistema.
+
+#### 3.2. Verificar comunicação com a placa
+
+Use os comandos abaixo para checar a detecção da USRP:
+
+```bash
+uhd_find_devices
+uhd_usrp_probe
+```
+
+Ambos devem identificar corretamente a X310. Se der erro, verifique cabo, IP e permissões.
+
+#### 3.3. Atualizar imagens do FPGA (compatível com UHD 4.8)
+
+Baixe e instale as imagens recomendadas:
+
+```bash
+sudo /usr/lib/uhd/utils/uhd_images_downloader.py
+```
+
+Após o download, atualize o FPGA com:
+
+```bash
+sudo /usr/bin/uhd_image_loader --args="type=x300,addr=192.168.10.2"
+```
+
+> **Importante:** a versão do FPGA precisa estar compatível com o UHD instalado. O erro "FPGA compatibility number mismatch" indica necessidade de atualização.
+
+#### 3.4. Testar recepção com `uhd_fft`
+
+Este comando gráfico permite verificar espectro em tempo real:
+
+```bash
+uhd_fft --freq 3500e6 --samp-rate 15.36e6 --gain 40
+```
+
+> Observação: é necessário estar com o ambiente `gr48` ativado.
 
