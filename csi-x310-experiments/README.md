@@ -1,0 +1,1 @@
+# Experimentos para extração do CSI com a SDR X310 em redes 5G
