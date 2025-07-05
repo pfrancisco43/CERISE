@@ -206,3 +206,33 @@ uhd_rx_cfile -f 3500e6 -r 15.36e6 -g 40 -N 46080000 captura_B.dat
 - `-N`: número total de amostras (exemplo: 15.36e6 × 3 s = 46080000)
 
 > **Importante:** Para evitar erro de permissão, certifique-se de ter permissões de escrita no diretório de destino ou execute com `sudo`.
+
+### 5. Processamento dos dados capturados (MATLAB)
+
+A análise dos sinais capturados é realizada com apoio de scripts em MATLAB. Todas as funções estão organizadas na pasta `matlab/`.
+
+#### Estrutura
+
+- `matlab/`
+  - `main.m` — script principal de orquestração.
+  - `lerArquivo.m`, `plotarFFT.m`, `detectarPSS.m`, `extrairCSI.m`, etc. — funções auxiliares, devidamente comentadas.
+
+#### ▶ Como executar
+
+1. No MATLAB, abra o diretório `matlab/`.
+2. Edite o início do script `main.m` para configurar:
+   - O nome do arquivo de captura `.dat`
+   - A taxa de amostragem (tipicamente 15.36 MHz)
+   - O tipo de dado (`int16` ou `float`)
+3. Execute o script `main.m`. Ele seguirá automaticamente as etapas abaixo:
+
+#### Etapas realizadas pelo `main.m`
+
+1. Leitura e conversão do arquivo `.dat` em vetor complexo.
+2. Exibição do espectro (FFT) bruto do sinal.
+3. Detecção da posição do PSS por correlação.
+4. Alinhamento do grid OFDM (baseado no PSS).
+5. Extração da matriz de símbolos.
+6. Cálculo e exibição do CSI (magnitude e fase).
+
+Todas as funções estão comentadas dentro dos arquivos `.m`.
