@@ -156,3 +156,53 @@ Inicialmente, testamos configurar a X310 como um equipamento de usuário (UE) us
 - Sincronização com gNB comercial
 
 Apesar das tentativas, **não foi possível concluir a sincronização com sucesso**. A X310 apresentou incompatibilidades em relação ao funcionamento esperado como UE. Por esse motivo, **optamos por seguir com a abordagem de escuta passiva**, descrita na próxima seção.
+
+### 4. Scripts de captura e visualização em tempo real
+
+Após a configuração do ambiente, realizamos as capturas de amostras diretamente da USRP X310 utilizando dois métodos principais:
+
+#### 4.1. Captura com `rx_samples_to_file` (UHD)
+
+Este método grava os dados diretamente em um arquivo `.dat` no formato especificado (por padrão, `short` = 16 bits). Os parâmetros mais utilizados estão destacados abaixo:
+
+```bash
+sudo ./rx_samples_to_file   --file=captura_A.dat   --rate=15.36e6   --freq=3500e6   --gain=40   --duration=3   --type=short
+```
+
+- `--file`: nome do arquivo de saída
+- `--rate`: taxa de amostragem (em Hz)
+- `--freq`: frequência central (em Hz)
+- `--gain`: ganho de recepção
+- `--duration`: tempo total da gravação (em segundos)
+- `--type`: tipo dos dados (`short` ou `float`)
+
+> **Nota:** Para experimentos compatíveis com OFDM 5G NR (subcarrier spacing de 30 kHz), usamos múltiplos de 15.36 MHz como taxa de amostragem, como por exemplo 15.36e6 ou 30.72e6.
+
+#### 4.2. Visualização em tempo real com `uhd_fft`
+
+Para validar a recepção e sintonização, utilizamos o `uhd_fft` do GNU Radio, que apresenta um gráfico espectral em tempo real:
+
+```bash
+uhd_fft --freq 3500e6 --samp-rate 15.36e6 --gain 40
+```
+
+Caso o comando esteja fora do caminho, verifique se o ambiente `gr48` está ativado:
+
+```bash
+conda activate gr48
+```
+
+#### 4.3. Captura alternativa com `uhd_rx_cfile` (GNU Radio)
+
+Outra opção para capturar amostras diretamente do GNU Radio em um arquivo `.dat`:
+
+```bash
+uhd_rx_cfile -f 3500e6 -r 15.36e6 -g 40 -N 46080000 captura_B.dat
+```
+
+- `-f`: frequência central (Hz)
+- `-r`: taxa de amostragem
+- `-g`: ganho
+- `-N`: número total de amostras (exemplo: 15.36e6 × 3 s = 46080000)
+
+> **Importante:** Para evitar erro de permissão, certifique-se de ter permissões de escrita no diretório de destino ou execute com `sudo`.
