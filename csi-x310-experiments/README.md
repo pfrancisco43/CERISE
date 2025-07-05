@@ -211,13 +211,13 @@ uhd_rx_cfile -f 3500e6 -r 15.36e6 -g 40 -N 46080000 captura_B.dat
 
 A análise dos sinais capturados é realizada com apoio de scripts em MATLAB. Todas as funções estão organizadas na pasta `matlab/`.
 
-#### Estrutura
+#### 5.1 Estrutura
 
 - `matlab/`
   - `main.m` — script principal de orquestração.
   - `lerArquivo.m`, `plotarFFT.m`, `detectarPSS.m`, `extrairCSI.m`, etc. — funções auxiliares, devidamente comentadas.
 
-#### ▶ Como executar
+#### 5.2 Como executar
 
 1. No MATLAB, abra o diretório `matlab/`.
 2. Edite o início do script `main.m` para configurar:
@@ -226,7 +226,7 @@ A análise dos sinais capturados é realizada com apoio de scripts em MATLAB. To
    - O tipo de dado (`int16` ou `float`)
 3. Execute o script `main.m`. Ele seguirá automaticamente as etapas abaixo:
 
-#### Etapas realizadas pelo `main.m`
+#### 5.3 Etapas realizadas pelo `main.m`
 
 1. Leitura e conversão do arquivo `.dat` em vetor complexo.
 2. Exibição do espectro (FFT) bruto do sinal.
@@ -236,3 +236,45 @@ A análise dos sinais capturados é realizada com apoio de scripts em MATLAB. To
 6. Cálculo e exibição do CSI (magnitude e fase).
 
 Todas as funções estão comentadas dentro dos arquivos `.m`.
+
+### 6. Análise e Resultados
+
+O processamento dos dados capturados é realizado via `MATLAB`, por meio do script principal `main.m` localizado na pasta [`matlab/`](matlab/). Esse script orquestra automaticamente as etapas de leitura do arquivo `.dat`, extração de símbolos, sincronização e, por fim, a obtenção do CSI.
+
+#### 6.1 Entradas
+- Os arquivos `.dat` gerados a partir das capturas com a USRP X310 foram organizados em uma pasta separada denominada `capturas/`. Como esses arquivos costumam ultrapassar o limite de 100 MB imposto pelo GitHub, **eles não foram incluídos diretamente no repositório**.
+
+Para acessar os arquivos de captura utilizados nos experimentos descritos aqui, utilize o seguinte link:
+
+🔗 [Download dos arquivos de captura (.dat)](https://drive.google.com/drive/folders/1wiMw0UAV4H4bGj_NnSg4ioZgZrgRoDyT?usp=sharing)
+
+> Obs.: Caso o link não esteja disponível, entre em contato com os autores do projeto para solicitar acesso.
+- A captura deve ser selecionada manualmente no início do script `main.m`.
+
+#### 6.2 Etapas do processamento e resultados gerados
+
+O `main.m` realiza as seguintes etapas, com geração de figuras e/ou variáveis a cada passo:
+
+1. **Leitura do arquivo de captura**
+   - Interpretação dos dados como números complexos (formato `int16` ou `float`)
+2. **Visualização da magnitude bruta**
+   - Permite observar a estrutura geral do sinal recebido
+
+   ![Magnitude bruta](imagens/magnitude_bruta.png)
+
+3. **Correlação com o PSS**
+   - Localiza padrões e permite estimar o início dos quadros
+
+   ![Correlação com PSS](imagens/correlacao_pss.png)
+
+4. **Visualização do grid de símbolos**
+   - Identificação visual dos símbolos OFDM presentes
+
+   ![Grid de símbolos](imagens/grid_simbolos.png)
+
+5. **Extração do CSI**
+   - Extração do CSI (Channel State Information) por subportadora
+   - Geração dos gráficos de magnitude e fase
+
+   ![Magnitude do CSI](imagens/csiMag.png)
+   
