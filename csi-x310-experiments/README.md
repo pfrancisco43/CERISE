@@ -265,7 +265,7 @@ O `main.m` realiza as seguintes etapas, com geração de figuras e/ou variáveis
 3. **Correlação com o PSS**
    - Localiza padrões e permite estimar o início dos quadros
 
-   ![Correlação com PSS](imagens/correlacao_pss.png)
+   ![Correlação com PSS](imagens/correlacao_pss.pdf)
 
 4. **Visualização do grid de símbolos**
    - Identificação visual dos símbolos OFDM presentes
@@ -277,4 +277,5 @@ O `main.m` realiza as seguintes etapas, com geração de figuras e/ou variáveis
    - Geração dos gráficos de magnitude e fase
 
    ![Magnitude do CSI](imagens/csiMag.png)
+   ![Magnitude do CSI](imagens/csiFase.png)
    
