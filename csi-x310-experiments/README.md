@@ -278,4 +278,41 @@ O `main.m` realiza as seguintes etapas, com geração de figuras e/ou variáveis
 
    ![Magnitude do CSI](imagens/csiMag.png)
    ![Magnitude do CSI](imagens/csiFase.png)
+
+#### 7. Considerações Finais e Próximos Passos
+
+Até o momento, os experimentos foram bem-sucedidos na **extração do CSI via escuta passiva**, utilizando a USRP X310 para capturar sinais 5G e realizar o processamento offline no MATLAB.
+
+No entanto, ainda existem etapas planejadas para o avanço desta linha de pesquisa, descritas a seguir:
+
+1. **Revisitar a tentativa de operação ativa como UE (User Equipment)**:
+   - Retomar a configuração da X310 como UE ativo.
+   - Avaliar viabilidade com:
+     - `srsUE` (srsRAN project);
+     - `OpenAirInterface` (OAI).
+   - Identificar limitações práticas (ex: modems internos, suporte de banda, handshake com gNodeB comercial).
+
+2. **Implementar um ambiente controlado de ponta a ponta**:
+   - Utilizar uma **segunda X310** para simular o papel de **gNodeB (base station)**.
+   - Controlar os parâmetros da transmissão, facilitando a análise do canal e validação dos algoritmos.
+
+3. **Aplicações de CSI para detecção e localização**:
+   - Utilizar o CSI extraído para experimentos de **sensoriamento sem fio**, como:
+     - Estimação de posição;
+     - Detecção de presença ou movimento;
+     - Reconhecimento de gestos;
+     - Rastreamento em ambientes indoor.
+
+4. **Refinar os scripts de automação e análise**:
+   - Consolidar o fluxo em um sistema mais robusto para múltiplas capturas e execuções.
+   - Incorporar outras visualizações no MATLAB (mapas de calor, espectrogramas, etc.).
+
+5. **Documentar e compartilhar novos avanços no repositório**:
+   - Manter este repositório atualizado com novos scripts, capturas e resultados.
+   - Compartilhar referências utilizadas e insights observados durante os testes.
+
+---
+
+Com essas próximas etapas, esperamos aprofundar a aplicação do CSI em cenários reais de sensoriamento, localização e inteligência ambiental usando redes 5G e SDRs avançadas como a USRP X310.
+
    
