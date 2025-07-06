@@ -1,5 +1,5 @@
 ## Experimentos para extração do CSI com a SDR X310 em redes 5G
-
+<span style="color: white;">.</span>  
 **Autor:** Paulo Francisco da Conceição  
 **Instituição:** Instituto Federal de Goiás (IFG)  
 **Projeto:** CERISE – Centro de Excelência em Redes Inteligentes e Serviços  
