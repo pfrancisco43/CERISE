@@ -1,5 +1,11 @@
 ## Experimentos para extração do CSI com a SDR X310 em redes 5G
 
+**Autor:** Paulo Francisco da Conceição  
+**Instituição:** Instituto Federal de Goiás (IFG)  
+**Projeto:** CERISE – Centro de Excelência em Redes Inteligentes e Serviços  
+**Eixo 1:** Localização e Sensoriamento  
+**Coordenador:** Henrique Pires Corrêa  
+
 ### 1. Introdução
 
 Este documento descreve o processo técnico e os experimentos realizados para capturar a Informação do Estado do Canal (CSI) em redes 5G usando a USRP X310. A iniciativa faz parte dos estudos conduzidos dentro do eixo 1 do CERISE, com foco em sensoriamento sem fio e localização.

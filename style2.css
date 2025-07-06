@@ -1,0 +1,97 @@
+/* Estilo base do corpo do texto */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 12pt;
+  line-height: 1.6;
+  text-align: justify;
+  color: #000;
+  margin: 2cm;
+}
+
+/* Títulos principais */
+h1 {
+  font-size: 20pt;
+  color: #2c3e50;
+  border-bottom: 2px solid #2c3e50;
+  padding-bottom: 0.2em;
+  page-break-before: always;
+}
+
+/* Títulos secundários */
+h2 {
+  font-size: 16pt;
+  color: #34495e;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 0.2em;
+  page-break-before: always;
+}
+
+/* Títulos terciários */
+h3 {
+  font-size: 14pt;
+  color: #555;
+  font-weight: bold;
+  margin-top: 1.5em;
+}
+
+/* Blocos de código */
+pre code {
+  font-family: 'Courier New', monospace;
+  font-size: 10pt;
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  display: block;
+  padding: 0.5em;
+  margin: 1em 0;
+  page-break-inside: avoid;
+}
+
+/* Código inline */
+code {
+  font-family: 'Courier New', monospace;
+  background-color: #f4f4f4;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+/* Imagens centralizadas */
+img {
+  display: block;
+  margin: 1em auto;
+  max-width: 90%;
+  page-break-inside: avoid;
+}
+
+/* Tabelas */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1em 0;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+th {
+  background-color: #eee;
+  text-align: left;
+}
+
+/* Evitar quebra de páginas em elementos */
+h1, h2, h3, pre, blockquote, table {
+  page-break-inside: avoid;
+}
+p {
+  text-indent: 2em;
+  text-align: justify;
+  margin: 0.5em 0; 
+}
+
+/* NENHUM recuo em blocos tipo Autor, Projeto, etc. */
+strong {
+  text-indent: 0;
+  display: inline;
+}
