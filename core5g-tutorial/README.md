@@ -8,7 +8,7 @@ Este tutorial é voltado a iniciantes que desejam entender como rodar o 5G Core 
 
 ---
 
-## 🔁 Fluxo de Ações
+## Fluxo de Ações
 
 1. Preparar o sistema operacional (Ubuntu 22.04)
 2. Instalar ferramentas e dependências básicas
@@ -104,7 +104,8 @@ DOCKER_TAG=latest
 ```bash
 docker compose -f docker-compose-basic-vpp-nrf.yaml up -d
 ```
-
+A saída deverá ser algo como:
+![Containers do Core 5G em execução](image.png)
 Verificar containers:
 
 ```bash
